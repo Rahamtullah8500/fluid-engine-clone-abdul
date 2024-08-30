@@ -1,0 +1,66 @@
+.template-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    padding: 20px 0;
+    height: 80vh;
+  }
+  
+  .template-tabs {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .tab {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    font-size: 1.5rem;
+    font-weight: 600;
+    max-width: fit-content;
+
+  }
+  
+  .tab::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #1e3a8a;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.4s ease-in-out;
+  }
+  
+  .tab:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .template-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  .template-image .image {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  @media (max-width: 768px) {
+    .template-group {
+      display: none; /* Hide the entire section on small screens */
+    }
+  }
+  
