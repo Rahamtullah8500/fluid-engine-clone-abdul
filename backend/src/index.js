@@ -29,7 +29,7 @@ const port = 4000;
 if (process.env.NODE_ENV === "production") {
   app.use(
     cors({
-      origin: ["https://fluid-engine-clone-abdul.onrender.com",'localhost:4000'],
+      origin: ["https://fluid-engine-clone-abdul.onrender.com",'http://localhost:4000'],
       credentials: true,
     })
   );
