@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
-import "./header.css";
+import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignOut } from "../../store/slice/UserSlice";
 
