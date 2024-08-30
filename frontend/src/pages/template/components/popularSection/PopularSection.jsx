@@ -52,7 +52,8 @@ const popularTemplateData = [
 
 const PopularSection = () => {
   const [data, setData] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
   useEffect(() => {
     fetchTemplates();
   }, []);
@@ -61,7 +62,7 @@ const PopularSection = () => {
     try {
       const response = await apiClient.get("/api/templates");
       setData(response.data);
-      dispatch(setTemplates(response.data))
+      dispatch(setTemplates(response.data));
       console.log("templ", response.data);
       return response.data;
     } catch (error) {
@@ -70,23 +71,25 @@ const PopularSection = () => {
     }
   };
 
-  
   return (
     <div className="popular-templates-section">
       <div className="popular-templates-heading">Popular Designs Templates</div>
       <div className="popular-designs">
-        {data && data.map((eachItem) => {
-          return (
-            <Link
-              key={eachItem.id}
-              to={`/preview/${encodeURIComponent(eachItem.title)}`}
-            >
-              <div className="popular-designs-item">
-                <img src={eachItem.imgPath} alt={eachItem.title} />
-              </div>
-            </Link>
-          );
-        })}
+        {data &&
+          data.map((eachItem) => {
+
+            const filteredTemplates = popularTemplateData.find(template => template.imgPath === eachItem.imgPath);
+            return (
+              <Link
+                key={eachItem.id}
+                to={`/preview/${encodeURIComponent(eachItem.title)}`}
+              >
+                <div className="popular-designs-item">
+                  <img src={filteredTemplates.img} alt={eachItem.title} />
+                </div>
+              </Link>
+            );
+          })}
       </div>
     </div>
   );
