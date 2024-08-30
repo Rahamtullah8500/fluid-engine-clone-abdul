@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import userRouter from "./routes/userRouter.js";
 import templateRouter from "./routes/templateRouter.js";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -37,15 +38,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/users", userRouter);
 app.use('/api/templates', templateRouter);
 
-app.use(express.static(path.join(path.resolve(), "public")));
+// app.use(express.static(path.join(path.resolve(), "public")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(path.resolve(), "client/build")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(path.resolve(), "client/build")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(path.resolve(),  "dist", "index.html"));//build ,"client",
-  });
-}
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(path.resolve(), "client", "build", "index.html"));
+//   });
+// }
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
+)
 
 
 
