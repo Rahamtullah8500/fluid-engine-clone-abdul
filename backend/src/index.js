@@ -25,12 +25,24 @@ mongoose
 const app = express();
 const port = 4000;
 
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:5173"],
-  })
-);
+// CORS setup
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    cors({
+      origin: "https://fluid-engine-clone-abdul.onrender.com",
+      credentials: true,
+    })
+  );
+} else {
+  app.use(
+    cors({
+      credentials: true,
+      origin: ["http://localhost:5173", "http://localhost:4000"],
+    })
+  );
+}
+
+// /
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
