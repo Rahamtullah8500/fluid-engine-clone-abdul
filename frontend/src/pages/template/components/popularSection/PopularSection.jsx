@@ -63,7 +63,6 @@ const PopularSection = () => {
       const response = await apiClient.get("/api/templates");
       setData(response.data);
       dispatch(setTemplates(response.data));
-      console.log("templ", response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching templates list:", error);

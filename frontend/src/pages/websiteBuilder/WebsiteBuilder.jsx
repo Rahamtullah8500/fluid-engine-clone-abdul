@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import './WebsiteBuilder.css'
+import "./WebsiteBuilder.css";
 import grapesjs from "grapesjs";
 import "grapesjs/dist/css/grapes.min.css";
 import "tailwindcss/tailwind.css";
@@ -9,10 +9,14 @@ import gsTabs from "grapesjs-tabs";
 import { toast } from "react-toastify";
 import addCustomBlocks from "./blocks";
 import addToolbarButtons from "./toolbar";
+import { useParams } from "react-router-dom";
+import { customTemplates } from "./customTemplates";
 
 const WebsiteBuilder = () => {
   const [editor, setEditor] = useState(null);
   const editorRef = useRef(null);
+  const { id } = useParams();
+
 
   useEffect(() => {
     const escapeName = (name) =>
@@ -27,8 +31,8 @@ const WebsiteBuilder = () => {
         // storageManager: false,
         selectorManager: { escapeName },
         assetManager: {
-          upload: true, 
-          autoAdd: true, 
+          upload: true,
+          autoAdd: true,
           uploadText: "Drop files here or click to upload",
           uploadFile: function (e) {
             const files = e.dataTransfer
@@ -49,7 +53,7 @@ const WebsiteBuilder = () => {
             }
           },
         },
-        plugins: ["grapesjs-tailwind", "CodeEditor", "exportCode"],
+        plugins: ["grapesjs-tailwind", "CodeEditor", "exportCode",],
         pluginsOpts: {
           [gsWebpage]: {},
           [gsCustom]: {},
@@ -84,27 +88,39 @@ const WebsiteBuilder = () => {
       });
 
       addCustomBlocks(editorInstance);
-      addToolbarButtons(editorInstance)      
+      addToolbarButtons(editorInstance);
+
+      editorInstance.BlockManager.add("temp"),
+        {
+          label: "Temp",
+          content: `
+            <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">Your Company</span>
+          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+        </a>
+        `,
+          category: "templares",
+        };
 
       editorInstance.BlockManager.add("image", {
         label: "Image",
         content: { type: "image" },
         category: "Basic",
         attributes: { class: "fa fa-image" },
-      }); 
+      });
 
       editorInstance.Commands.add("save-db", {
         run: () => handleSave(),
       });
 
-      // if (templateId && templates[templateId]) {
-        // editorInstance.setComponents(<div className=" h-5 w-20 bg-blue-600">checking</div>);
-      // }
+      if (id && customTemplates[id]) {
+        editorInstance.setComponents(customTemplates[id])
+      } else {
+        const savedContent = JSON.parse(localStorage.getItem("MyPage"));
 
-      const savedContent = JSON.parse(localStorage.getItem("MyPage"));
-
-      if (savedContent) {
-        editorInstance.setComponents(savedContent.components);
+        if (savedContent) {
+          editorInstance.setComponents(savedContent.components);
+        }
       }
 
       editorRef.current = editorInstance;
@@ -142,95 +158,92 @@ const WebsiteBuilder = () => {
 
 export default WebsiteBuilder;
 
-
 // import grapesjsTailwind from 'grapesjs-tailwindcss';
 // import thePlugin from "grapesjs-plugin-export";
 // import pluginTooltip from "grapesjs-tooltip";
- // Add your custom buttons while keeping the default ones
-      // const panelManager = editorInstance.Panels;
+// Add your custom buttons while keeping the default ones
+// const panelManager = editorInstance.Panels;
 
-      // Clear default device buttons
-      // const devicesPanel = panelManager.getPanel("devices-c");
-      // if (devicesPanel) {
-      //   devicesPanel.buttons.clear();
-      // }
+// Clear default device buttons
+// const devicesPanel = panelManager.getPanel("devices-c");
+// if (devicesPanel) {
+//   devicesPanel.buttons.clear();
+// }
 
-      // Add custom buttons to the existing 'options' panel
-      // const optionsPanel = panelManager.getPanel("options");
-      // optionsPanel &&
-      //   optionsPanel.buttons.push([
-      //     {
-      //       id: "device-desktop",
-      //       command: "set-device-desktop",
-      //       className: "fa fa-desktop",
-      //       attributes: { title: "Desktop" },
-      //       active: true,
-      //     },
-      //     {
-      //       id: "device-tablet",
-      //       command: "set-device-tablet",
-      //       className: "fa fa-tablet",
-      //       attributes: { title: "Tablet" },
-      //     },
-      //     {
-      //       id: "device-mobile",
-      //       command: "set-device-mobile",
-      //       className: "fa fa-mobile",
-      //       attributes: { title: "Mobile" },
-      //     },
-      //     {
-      //       id: "undo",
-      //       command: "core:undo",
-      //       className: "fa fa-undo",
-      //       attributes: { title: "Undo" },
-      //     },
-      //     {
-      //       id: "redo",
-      //       command: "core:redo",
-      //       className: "redo",
-      //       attributes: { title: "Redo" },
-      //     },
-      //     {
-      //       id: "delete",
-      //       command: "core:component-delete",
-      //       className: "fa fa-trash",
-      //       attributes: { title: "Delete" },
-      //     },
-      //     {
-      //       id: "save",
-      //       command: "save-db",
-      //       className: "fa fa-save",
-      //       attributes: { title: "Save" },
-      //     },
-      //     {
-      //       id: "download",
-      //       command: "export-template",
-      //       className: "fa fa-download",
-      //       attributes: { title: "Download" },
-      //     },
-      //   ]);
+// Add custom buttons to the existing 'options' panel
+// const optionsPanel = panelManager.getPanel("options");
+// optionsPanel &&
+//   optionsPanel.buttons.push([
+//     {
+//       id: "device-desktop",
+//       command: "set-device-desktop",
+//       className: "fa fa-desktop",
+//       attributes: { title: "Desktop" },
+//       active: true,
+//     },
+//     {
+//       id: "device-tablet",
+//       command: "set-device-tablet",
+//       className: "fa fa-tablet",
+//       attributes: { title: "Tablet" },
+//     },
+//     {
+//       id: "device-mobile",
+//       command: "set-device-mobile",
+//       className: "fa fa-mobile",
+//       attributes: { title: "Mobile" },
+//     },
+//     {
+//       id: "undo",
+//       command: "core:undo",
+//       className: "fa fa-undo",
+//       attributes: { title: "Undo" },
+//     },
+//     {
+//       id: "redo",
+//       command: "core:redo",
+//       className: "redo",
+//       attributes: { title: "Redo" },
+//     },
+//     {
+//       id: "delete",
+//       command: "core:component-delete",
+//       className: "fa fa-trash",
+//       attributes: { title: "Delete" },
+//     },
+//     {
+//       id: "save",
+//       command: "save-db",
+//       className: "fa fa-save",
+//       attributes: { title: "Save" },
+//     },
+//     {
+//       id: "download",
+//       command: "export-template",
+//       className: "fa fa-download",
+//       attributes: { title: "Download" },
+//     },
+//   ]);
 
-    
-
-      // editorInstance.Commands.add("export-template", {
-      //   run: (editor) => {
-      //     const html = editor.getHtml();
-      //     const css = editor.getCss();
-      //     const fullHtml = `
-      //       <!DOCTYPE html>
-      //       <html>
-      //         <head>
-      //           <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-      //           <style>${css}</style>
-      //         </head>
-      //         <body>${html}</body>
-      //       </html>`;
-      //     const blob = new Blob([fullHtml], { type: "text/html" });
-      //     const url = URL.createObjectURL(blob);
-      //     const a = document.createElement("a");
-      //     a.href = url;
-      //     a.download = "template.html";
-      //     a.click();
-      //     URL.revokeObjectURL(url);
-      //   },
-      // });
+// editorInstance.Commands.add("export-template", {
+//   run: (editor) => {
+//     const html = editor.getHtml();
+//     const css = editor.getCss();
+//     const fullHtml = `
+//       <!DOCTYPE html>
+//       <html>
+//         <head>
+//           <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+//           <style>${css}</style>
+//         </head>
+//         <body>${html}</body>
+//       </html>`;
+//     const blob = new Blob([fullHtml], { type: "text/html" });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement("a");
+//     a.href = url;
+//     a.download = "template.html";
+//     a.click();
+//     URL.revokeObjectURL(url);
+//   },
+// });

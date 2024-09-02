@@ -27,7 +27,7 @@ const router = createBrowserRouter(
         <Route path="/preview/:title"  element={ <Suspense fallback={<div>Loading...</div>}>   <PreviewSection /> </Suspense>}/>
         <Route path="auth" element={ <Suspense fallback={<div>Loading...</div>}> <AuthPages /></Suspense>}></Route>
         <Route path="" element={<Suspense fallback={<div>Loading...</div>}><ProtectedRoute /></Suspense>}> 
-         <Route path="/websiteBuilder" element={<Suspense fallback={<div>Loading...</div>}>  <WebsiteBuilder /></Suspense> }/>
+         <Route path="/websiteBuilder?/:id" element={<Suspense fallback={<div>Loading...</div>}>  <WebsiteBuilder /></Suspense> }/>
          </Route>
       </Route>
     </>

@@ -1,8 +1,10 @@
 import "./Template.css";
+import '../home/Home.css/'
 import invoiceVideo from "../../../public/videos/invoice.mp4";
 import PopularSection from "./components/popularSection/PopularSection";
 import LatestSection from "./components/latestSection/LatestSection";
 import BuildOwnSection from "./components/buildOwnSection/BuildOwnSection";
+import CustomTemplates from "./components/customTemplates/CustomTemplates";
 
 const Template = () => {
 
@@ -33,6 +35,7 @@ const Template = () => {
         </div>
       </div>
       <BuildOwnSection/>
+      <CustomTemplates/>
       <PopularSection />
       <LatestSection />
     </div>

@@ -13,7 +13,7 @@ import BuildOwnSection from "../template/components/buildOwnSection/BuildOwnSect
 const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    fetchTemplates()
+    fetchTemplates();
   }, []);
 
   const fetchTemplates = async () => {
@@ -29,6 +29,8 @@ const Home = () => {
 
   return (
     <>
+
+
       <div className=" my_container">
         <div className="home-container">
           <div className="home-text">
@@ -56,7 +58,7 @@ const Home = () => {
           </div>
         </div>
         <SearchSection />
-        <BuildOwnSection/>
+        <BuildOwnSection />
       </div>
       <IntroSection />
       <TemplateGroup />

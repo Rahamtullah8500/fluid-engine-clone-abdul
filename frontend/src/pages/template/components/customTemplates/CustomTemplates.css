@@ -1,0 +1,13 @@
+.custom-temp-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  
+  .custom-temp-image img {
+    width: 100%;
+    height:18rem;
+    display: block;
+    background-color: #fff;
+  }
+  

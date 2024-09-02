@@ -7,33 +7,6 @@ const addToolbarButtons = (editor) => {
       devicesPanel.buttons.clear();
   }
 
-  // Create a new panel for the device buttons on the left
-  panelManager.addPanel({
-    id: "devices-c",
-    el: ".panel__devices",
-    buttons: [
-      {
-        id: "device-desktop",
-        command: "set-device-desktop",
-        className: "fa fa-desktop",
-        attributes: { title: "Desktop" },
-        active: true,
-      },
-      {
-        id: "device-tablet",
-        command: "set-device-tablet",
-        className: "fa fa-tablet",
-        attributes: { title: "Tablet" },
-      },
-      {
-        id: "device-mobile",
-        command: "set-device-mobile",
-        className: "fa fa-mobile",
-        attributes: { title: "Mobile" },
-      },
-    ],
-  });
-
   // Add custom buttons to the existing 'options' panel
   const optionsPanel = panelManager.getPanel("options");
   optionsPanel &&
@@ -66,7 +39,7 @@ const addToolbarButtons = (editor) => {
       {
         id: "redo",
         command: "core:redo",
-        className: "redo",
+        className: "fa fa-repeat",
         attributes: { title: "Redo" },
       },
       {
