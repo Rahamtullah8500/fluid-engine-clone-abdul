@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setTemplates } from "../../store/slice/TemplateSlice";
 import apiClient from "../../apiClient";
+import BuildOwnSection from "../template/components/buildOwnSection/BuildOwnSection";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,6 @@ const Home = () => {
               Get your free website trial today. No credit card required.
             </p>
             <Link to={"template"}>
-              {" "}
               <button className=" home-button  ">GET STARTED</button>
             </Link>
           </div>
@@ -56,6 +56,7 @@ const Home = () => {
           </div>
         </div>
         <SearchSection />
+        <BuildOwnSection/>
       </div>
       <IntroSection />
       <TemplateGroup />

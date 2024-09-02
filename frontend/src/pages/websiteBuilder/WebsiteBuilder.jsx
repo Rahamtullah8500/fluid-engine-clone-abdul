@@ -3,9 +3,6 @@ import './WebsiteBuilder.css'
 import grapesjs from "grapesjs";
 import "grapesjs/dist/css/grapes.min.css";
 import "tailwindcss/tailwind.css";
-// import grapesjsTailwind from 'grapesjs-tailwindcss';
-// import thePlugin from "grapesjs-plugin-export";
-// import pluginTooltip from "grapesjs-tooltip";
 import gsWebpage from "grapesjs-preset-webpage";
 import gsCustom from "grapesjs-custom-code";
 import gsTabs from "grapesjs-tabs";
@@ -96,7 +93,60 @@ const WebsiteBuilder = () => {
         attributes: { class: "fa fa-image" },
       }); 
 
-      // Add your custom buttons while keeping the default ones
+      editorInstance.Commands.add("save-db", {
+        run: () => handleSave(),
+      });
+
+      // if (templateId && templates[templateId]) {
+        // editorInstance.setComponents(<div className=" h-5 w-20 bg-blue-600">checking</div>);
+      // }
+
+      const savedContent = JSON.parse(localStorage.getItem("MyPage"));
+
+      if (savedContent) {
+        editorInstance.setComponents(savedContent.components);
+      }
+
+      editorRef.current = editorInstance;
+      setEditor(editorInstance);
+    }
+
+    return () => {
+      editorRef.current?.destroy();
+      editorRef.current = null;
+    };
+  }, []);
+
+  const handleSave = () => {
+    if (editorRef.current) {
+      const components = editorRef.current.getComponents();
+      const savedContent = {
+        components: components.toJSON(),
+      };
+      localStorage.setItem("MyPage", JSON.stringify(savedContent));
+      toast.success("Saved");
+    }
+  };
+
+  return (
+    <div className="GrapesJsApp">
+      <div className="Editor">
+        <div id="blocks">
+          <span className=" text-white">My Custom Blocks</span>
+        </div>
+        <div id="gis" style={{ height: "100%" }}></div>
+      </div>
+    </div>
+  );
+};
+
+export default WebsiteBuilder;
+
+
+// import grapesjsTailwind from 'grapesjs-tailwindcss';
+// import thePlugin from "grapesjs-plugin-export";
+// import pluginTooltip from "grapesjs-tooltip";
+ // Add your custom buttons while keeping the default ones
       // const panelManager = editorInstance.Panels;
 
       // Clear default device buttons
@@ -184,48 +234,3 @@ const WebsiteBuilder = () => {
       //     URL.revokeObjectURL(url);
       //   },
       // });
-
-      editorInstance.Commands.add("save-db", {
-        run: (editor) => handleSave(),
-      });
-
-      const savedContent = JSON.parse(localStorage.getItem("MyPage"));
-
-      if (savedContent) {
-        editorInstance.setComponents(savedContent.components);
-      }
-
-      editorRef.current = editorInstance;
-      setEditor(editorInstance);
-    }
-
-    return () => {
-      editorRef.current?.destroy();
-      editorRef.current = null;
-    };
-  }, []);
-
-  const handleSave = () => {
-    if (editorRef.current) {
-      const components = editorRef.current.getComponents();
-      const savedContent = {
-        components: components.toJSON(),
-      };
-      localStorage.setItem("MyPage", JSON.stringify(savedContent));
-      toast.success("Saved");
-    }
-  };
-
-  return (
-    <div className="GrapesJsApp">
-      <div className="Editor">
-        <div id="blocks">
-          <span className=" text-white">My Custom Blocks</span>
-        </div>
-        <div id="gis" style={{ height: "100%" }}></div>
-      </div>
-    </div>
-  );
-};
-
-export default WebsiteBuilder;

@@ -45,24 +45,12 @@ if (process.env.NODE_ENV === "production") {
   );
 }
 
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter);
 app.use('/api/templates', templateRouter);
 
-// app.use(express.static(path.join(path.resolve(), "public")));
-
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(path.resolve(), "client/build")));
-
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(path.resolve(), "client", "build", "index.html"));
-//   });
-// }
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -71,8 +59,6 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')))
 app.get('*', (req, res) =>
   res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
 )
-
-
 
 const Port = parseInt((process.env.PORT || '5000'),10) 
 

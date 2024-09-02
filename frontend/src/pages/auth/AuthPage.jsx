@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "./AuthPage.css";
 import apiClient from "../../apiClient";
 import { userSignIn } from "../../store/slice/UserSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthPages = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -14,6 +14,8 @@ const AuthPages = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const AuthPages = () => {
       dispatch(userSignIn(response.data));
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       toast.success("Login successful");
-      navigate('/')
+      navigate(from, { replace: true });
     } catch (err) {
       console.log(err)
       toast.error('Invalid credentials');
@@ -44,7 +46,7 @@ const AuthPages = () => {
       dispatch(userSignIn(response.data));
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       toast.success("Account created successfully");
-      navigate('/')
+      navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.message);
     } finally {
