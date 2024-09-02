@@ -37,7 +37,7 @@ const Home = () => {
             </p>
             <Link to={"template"}>
               {" "}
-              <button className="home-button">GET STARTED</button>
+              <button className=" home-button  ">GET STARTED</button>
             </Link>
           </div>
 

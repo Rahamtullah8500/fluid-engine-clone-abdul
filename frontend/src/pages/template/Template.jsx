@@ -2,6 +2,7 @@ import "./Template.css";
 import invoiceVideo from "../../../public/videos/invoice.mp4";
 import PopularSection from "./components/popularSection/PopularSection";
 import LatestSection from "./components/latestSection/LatestSection";
+import BuildOwnSection from "./components/buildOwnSection/BuildOwnSection";
 
 const Template = () => {
 
@@ -31,6 +32,7 @@ const Template = () => {
           </video>
         </div>
       </div>
+      <BuildOwnSection/>
       <PopularSection />
       <LatestSection />
     </div>

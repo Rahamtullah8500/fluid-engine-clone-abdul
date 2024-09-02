@@ -13,6 +13,15 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.5",
     "framer-motion": "^11.3.31",
+    "grapesjs": "^0.21.13",
+    "grapesjs-tailwind": "^1.0.7",
+    "grapesjs-blocks-basic": "^0.1.8",
+    "grapesjs-custom-code": "^0.1.3",
+    "grapesjs-preset-newsletter": "^0.2.20",
+    "grapesjs-preset-webpage": "^0.1.11",
+    "grapesjs-react": "^3.0.4",
+    "grapesjs-tabs": "^0.2.2",
+    "node-html-parser": "^1.2.20",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
     "react-dom": "^18.3.1",
@@ -33,8 +42,8 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
     "postcss": "^8.4.41",
+    "react-toastify": "^9.1.1",
     "tailwindcss": "^3.4.10",
-    "vite": "^5.4.1",
-    "react-toastify": "^9.1.1"
+    "vite": "^5.4.1"
   }
 }
